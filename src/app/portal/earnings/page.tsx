@@ -47,7 +47,7 @@ export default async function EarningsPage({ searchParams }: PageProps<"/portal/
       <div className="mt-6 mb-3 flex flex-wrap gap-2">
         {filters.map((f) => (
           <Link key={f} href={f === "all" ? "/portal/earnings" : `/portal/earnings?status=${f}`}
-            className={`rounded-full px-3 py-1 text-sm font-medium capitalize ${f === filter ? "bg-brand-600 text-white" : "bg-white text-zinc-700 ring-1 ring-zinc-200"}`}>
+            className={`rounded-full px-3 py-1 text-sm font-medium capitalize ${f === filter ? "bg-brand-900 text-white" : "bg-white text-zinc-700 ring-1 ring-zinc-200"}`}>
             {f}
           </Link>
         ))}

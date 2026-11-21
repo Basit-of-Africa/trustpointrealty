@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
+import { Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
+
+// The same typefaces as trustpointrealty.ng
+const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat", display: "swap" });
+const openSans = Open_Sans({ subsets: ["latin"], variable: "--font-open-sans", display: "swap" });
 
 export const metadata: Metadata = {
   title: { default: "TrustPoint Realty Partners Portal", template: "%s · TrustPoint Partners" },
@@ -9,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-NG">
+    <html lang="en-NG" className={`${montserrat.variable} ${openSans.variable}`}>
       <body className="min-h-screen antialiased">{children}</body>
     </html>
   );

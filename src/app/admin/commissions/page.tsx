@@ -46,7 +46,7 @@ export default async function CommissionsPage({ searchParams }: PageProps<"/admi
       <div className="mb-3 flex flex-wrap items-center gap-2">
         {tabs.map((t) => (
           <Link key={t} href={`/admin/commissions?status=${t}${realtorFilter ? `&realtor=${realtorFilter}` : ""}`}
-            className={`rounded-full px-3 py-1 text-sm font-medium capitalize ${status === t ? "bg-brand-600 text-white" : "bg-white text-zinc-700 ring-1 ring-zinc-200"}`}>{t}</Link>
+            className={`rounded-full px-3 py-1 text-sm font-medium capitalize ${status === t ? "bg-brand-900 text-white" : "bg-white text-zinc-700 ring-1 ring-zinc-200"}`}>{t}</Link>
         ))}
         {realtorFilter && <Link className="link text-sm" href={`/admin/commissions?status=${status}`}>Clear realtor filter</Link>}
         <span className="ml-auto text-sm text-zinc-600">{totals.n} entries · {formatNaira(Number(totals.total))}</span>

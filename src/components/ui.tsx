@@ -13,7 +13,7 @@ export function PageHeader({
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-zinc-900">{title}</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-brand-900">{title}</h1>
         {description && <p className="mt-1 text-sm text-zinc-600">{description}</p>}
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
@@ -38,7 +38,7 @@ export function Card({
     <section className={`min-w-0 rounded-xl border border-zinc-200 bg-white shadow-sm ${className}`}>
       {(title || actions) && (
         <header className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-100 px-4 py-3">
-          {title && <h2 className="text-sm font-semibold text-zinc-900">{title}</h2>}
+          {title && <h2 className="text-sm font-semibold text-brand-900">{title}</h2>}
           {actions}
         </header>
       )}
@@ -60,7 +60,7 @@ export function Stat({
 }) {
   const tones = {
     default: "bg-white border-zinc-200",
-    brand: "bg-brand-700 border-brand-700 text-white",
+    brand: "bg-brand-900 border-brand-900 text-white",
     accent: "bg-accent-400/15 border-accent-400/40",
   };
   return (

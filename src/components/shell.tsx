@@ -20,8 +20,8 @@ export function AppShell({
       <aside className="bg-brand-900 lg:fixed lg:inset-y-0 lg:flex lg:w-60 lg:flex-col">
         <div className="flex items-center justify-between px-6 py-4 lg:block lg:py-6">
           <Link href={items[0].href} className="block">
-            <div className="text-lg font-bold text-white">TrustPoint</div>
-            <div className="text-xs font-medium tracking-wide text-accent-400 uppercase">{title}</div>
+            <div className="font-heading text-lg font-bold text-white">TrustPoint <span className="text-accent-500">Realty</span></div>
+            <div className="text-xs font-medium tracking-wide text-accent-500 uppercase">{title}</div>
           </Link>
           <form action={logoutAction} className="lg:hidden">
             <button className="text-sm text-brand-100 hover:text-white">Log out</button>

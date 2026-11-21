@@ -1,25 +1,44 @@
 @import "tailwindcss";
 
-/* Brand tokens: adjust these to match the TrustPoint logo exactly. */
+/*
+ * Brand tokens taken from trustpointrealty.ng:
+ *   navy  #040B20  (brand-900)  dark sections, sidebar
+ *   gold  #F5A318  (accent-500) buttons, highlights
+ * accent-700 is a darker gold for text links on white, because the exact gold
+ * is too light to read there (2.1:1 contrast; accent-700 is 5.4:1).
+ */
 @theme {
-  --color-brand-50: #eef6f1;
-  --color-brand-100: #d5eadd;
-  --color-brand-500: #1f7a4d;
-  --color-brand-600: #186640;
-  --color-brand-700: #124f32;
-  --color-brand-900: #0b2e1d;
-  --color-accent-400: #e0b44a;
-  --color-accent-500: #c99a2e;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --color-brand-50: #f0f2f7;
+  --color-brand-100: #c9cfdd;
+  --color-brand-200: #a9b1c7;
+  --color-brand-500: #2a3a66;
+  --color-brand-600: #1a2648;
+  --color-brand-700: #0e1833;
+  --color-brand-800: #08112a;
+  --color-brand-900: #040b20;
+  --color-accent-50: #fef6e7;
+  --color-accent-100: #fde7bf;
+  --color-accent-400: #f7b23f;
+  --color-accent-500: #f5a318;
+  --color-accent-600: #e39410;
+  --color-accent-700: #9a5b00;
+  --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 body {
-  background: #f6f7f6;
-  color: #17211b;
+  background: #f5f5f5;
+  color: #1f2433;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
 }
 
 @utility input {
-  @apply block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm shadow-sm placeholder:text-zinc-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 focus:outline-none disabled:bg-zinc-100;
+  @apply block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm shadow-sm placeholder:text-zinc-400 focus:border-accent-500 focus:ring-2 focus:ring-accent-100 focus:outline-none disabled:bg-zinc-100;
 }
 @utility label {
   @apply mb-1 block text-sm font-medium text-zinc-700;
@@ -28,7 +47,7 @@ body {
   @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60;
 }
 @utility btn-primary {
-  @apply btn bg-brand-600 text-white hover:bg-brand-700;
+  @apply btn bg-accent-500 text-brand-900 hover:bg-accent-600;
 }
 @utility btn-secondary {
   @apply btn border border-zinc-300 bg-white text-zinc-800 hover:bg-zinc-50;
@@ -52,5 +71,5 @@ body {
   @apply border-b-0;
 }
 @utility link {
-  @apply font-medium text-brand-600 hover:text-brand-700 hover:underline;
+  @apply font-medium text-accent-700 hover:text-brand-900 hover:underline;
 }

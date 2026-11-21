@@ -22,7 +22,7 @@ export default async function AdminSalesPage({ searchParams }: PageProps<"/admin
       <div className="mb-3 flex flex-wrap gap-2">
         {["all", ...saleStatuses].map((s) => (
           <Link key={s} href={s === "all" ? "/admin/sales" : `/admin/sales?status=${s}`}
-            className={`rounded-full px-3 py-1 text-sm font-medium capitalize ${(status ?? "all") === s ? "bg-brand-600 text-white" : "bg-white text-zinc-700 ring-1 ring-zinc-200"}`}>{s}</Link>
+            className={`rounded-full px-3 py-1 text-sm font-medium capitalize ${(status ?? "all") === s ? "bg-brand-900 text-white" : "bg-white text-zinc-700 ring-1 ring-zinc-200"}`}>{s}</Link>
         ))}
       </div>
       <Card flush>
