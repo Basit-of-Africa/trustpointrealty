@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "trustpoint-portal",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    { "binding": "WORKER_SELF_REFERENCE", "service": "trustpoint-portal" }
+  ],
+  "vars": {
+    "APP_URL": "https://partners.trustpointrealty.ng",
+    "EMAIL_FROM": "TrustPoint Realty <no-reply@trustpointrealty.ng>"
+  }
+  // Secrets (set with `npx wrangler secret put NAME`):
+  //   DATABASE_URL    - Neon connection string
+  //   RESEND_API_KEY  - optional, for password-reset emails
+}
