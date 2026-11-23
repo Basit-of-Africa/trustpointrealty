@@ -22,6 +22,10 @@
   --color-accent-500: #f5a318;
   --color-accent-600: #e39410;
   --color-accent-700: #9a5b00;
+  /* Marketing site extras (from the WordPress theme's global colours) */
+  --color-tp-orange: #ec7204;
+  --color-tp-body: #4b4f58;
+  --color-tp-light: #f5f5f5;
   --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
   --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
 }

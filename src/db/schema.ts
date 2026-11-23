@@ -313,6 +313,30 @@ export const auditLog = pgTable(
   (t) => [index("audit_created_idx").on(t.createdAt)],
 );
 
+export const enquiryStatusEnum = pgEnum("enquiry_status", ["new", "contacted", "closed"]);
+
+/** "Request a Quote" submissions from the public website. */
+export const enquiries = pgTable(
+  "enquiries",
+  {
+    id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+    prefix: text("prefix"),
+    firstName: text("first_name").notNull(),
+    middleName: text("middle_name"),
+    lastName: text("last_name").notNull(),
+    email: text("email").notNull(),
+    phone: text("phone").notNull(),
+    packages: text("packages").array().notNull().default(sql`'{}'::text[]`),
+    notes: text("notes"),
+    // The page the form was sent from, e.g. /palm-oasis
+    sourcePage: text("source_page"),
+    status: enquiryStatusEnum("status").notNull().default("new"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("enquiries_created_idx").on(t.createdAt)],
+);
+
+export type Enquiry = typeof enquiries.$inferSelect;
 export type User = typeof users.$inferSelect;
 export type Estate = typeof estates.$inferSelect;
 export type Client = typeof clients.$inferSelect;

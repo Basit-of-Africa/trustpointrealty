@@ -440,3 +440,17 @@ export async function voidPayoutAction(_: ActionState, form: FormData): Promise<
   revalidatePath("/admin", "layout");
   return { success: "Payout voided; the amount is back in the realtor's available balance." };
 }
+
+/* --------------------------------------------------------------- Enquiries */
+
+export async function setEnquiryStatusAction(_: ActionState, form: FormData): Promise<ActionState> {
+  const admin = await requireAdmin();
+  const id = intId(form, "enquiryId");
+  const status = z.enum(["new", "contacted", "closed"]).safeParse(str(form, "status"));
+  if (!id || !status.success) return { error: "Invalid request." };
+  const db = getDb();
+  await db.update(schema.enquiries).set({ status: status.data }).where(eq(schema.enquiries.id, id));
+  await audit(db, admin.id, `enquiry.${status.data}`, "enquiry", id);
+  revalidatePath("/admin", "layout");
+  return { success: `Enquiry #${id} marked ${status.data}.` };
+}

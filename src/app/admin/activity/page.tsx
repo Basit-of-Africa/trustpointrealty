@@ -12,6 +12,7 @@ const entityLinks: Record<string, (id: string) => string> = {
   sale: (id) => `/admin/sales/${id}`,
   client: (id) => `/admin/clients/${id}`,
   estate: (id) => `/admin/estates/${id}`,
+  enquiry: () => `/admin/enquiries`,
 };
 
 export default async function ActivityPage({ searchParams }: PageProps<"/admin/activity">) {

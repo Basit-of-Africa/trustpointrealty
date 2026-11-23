@@ -7,9 +7,13 @@ const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat
 const openSans = Open_Sans({ subsets: ["latin"], variable: "--font-open-sans", display: "swap" });
 
 export const metadata: Metadata = {
-  title: { default: "TrustPoint Realty Partners Portal", template: "%s · TrustPoint Partners" },
-  description: "Realtor portal for TrustPoint Realty: clients, sales, commissions and payouts.",
-  robots: { index: false, follow: false },
+  metadataBase: new URL(process.env.APP_URL ?? "https://trustpointrealty.ng"),
+  title: {
+    default: "TrustPoint Realty – Your Topmost Trustworthy Real Estate agency…",
+    template: "%s – TrustPoint Realty",
+  },
+  description:
+    "TrustPoint Realty: estate development, consultation and real estate investment in Ibadan, Nigeria. Coconutview, Avocado Crest, Palm Oasis and Maple Nexus estates.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

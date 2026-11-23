@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: { default: "TrustPoint Realty Partners Portal", template: "%s · TrustPoint Partners" },
+  robots: { index: false, follow: false },
+};
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (

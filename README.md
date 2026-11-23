@@ -1,7 +1,33 @@
-# TrustPoint Realty: Partners Portal
+# TrustPoint Realty: website + Partners Portal
 
-The realtor (affiliate) portal for [trustpointrealty.ng](https://trustpointrealty.ng). It replaces the
-WordPress + Ultimate Affiliate Pro setup. Realtors register clients and track sales, commissions and
+The hand-coded replacement for the WordPress site at [trustpointrealty.ng](https://trustpointrealty.ng):
+the public website and the realtor (affiliate) portal, which replaces Ultimate Affiliate Pro.
+
+## The website
+
+Same pages and addresses as the WordPress site: `/`, `/projects`, `/services`, `/about`, `/careers`,
+`/contact-us`, and the estate pages `/coconutview`, `/avocado-crest`, `/palm-oasis`, `/maple-nexus`.
+"Realtors" in the menu leads to the portal below.
+
+- **All copy, contact details, estates, FAQs and jobs live in `src/content/site.ts`.** Edit there; to add
+  an estate page, add an entry to `estates`.
+- **Request a Quote** submissions are saved to the database and appear in **Admin → Enquiries**. Set
+  `ENQUIRY_NOTIFY_EMAIL` (with `RESEND_API_KEY`) to also get an email for each one.
+- **Images and PDFs are still served from the WordPress server.** Before switching WordPress off, run
+  `npm run fetch-wp-assets` on a machine that can reach the old site. It copies every file into
+  `public/wp-content/uploads/`. Then set `NEXT_PUBLIC_ASSET_BASE=""` and commit `public/`.
+- Marketing pages are pre-rendered static HTML; the portal and admin pages are dynamic.
+
+### Switching the domain over
+
+1. Run `npm run fetch-wp-assets`, set `NEXT_PUBLIC_ASSET_BASE=""`, commit.
+2. Import realtors from WordPress (see "Coming from WordPress" below).
+3. Point `trustpointrealty.ng` at the Cloudflare Worker and set `APP_URL=https://trustpointrealty.ng`.
+
+## The partners portal
+
+Realtors register clients and track sales, commissions and payouts. The office records sales and client
+payments, approves commission and logs payouts. Realtors register clients and track sales, commissions and
 payouts. The office records sales and client payments, approves commission and logs payouts.
 
 **No money moves through the portal.** Payouts are made by bank transfer as before and only *logged* here.
@@ -66,8 +92,8 @@ put `DATABASE_URL` in `.dev.vars`).
    npx wrangler secret put RESEND_API_KEY   # optional, for password-reset emails
    npm run cf:deploy
    ```
-5. Point a subdomain (suggested: `partners.trustpointrealty.ng`) at the Worker, and set `APP_URL` in
-   `wrangler.jsonc` to match. Update the WordPress "Realtors" menu links to the new portal.
+5. Point the domain at the Worker and set `APP_URL` in `wrangler.jsonc` to match (see "Switching the
+   domain over" above). Optionally `npx wrangler secret put ENQUIRY_NOTIFY_EMAIL`.
 
 Optional: create a [Hyperdrive](https://developers.cloudflare.com/hyperdrive/) config for the Neon database
 and bind it as `HYPERDRIVE`. The app uses it automatically for faster connections.
@@ -88,12 +114,15 @@ The import script itself needs a database export from the live site (`wp_users`,
 ## Project layout
 
 ```
-src/db/schema.ts          tables (users, estates, clients, sales, sale_payments, commissions, payouts, audit_log)
+src/db/schema.ts          tables (users, estates, clients, sales, sale_payments, commissions, payouts, audit_log, enquiries)
 src/lib/ledger.ts         balances, commission creation and reversal
 src/lib/auth/             sessions, password hashing (incl. WordPress formats), guards
+src/content/site.ts       all website copy, images, estates, FAQs, jobs
+src/app/(site)/           the public website pages + "Request a Quote" action
+src/components/site/      website header, footer, sections, quote form
 src/app/(public)/         /realtors, /become-a-realtor, /realtor-login, password reset
 src/app/r/[code]          referral link (/r/TPXXXXX) → registration with code prefilled
 src/app/portal/           realtor portal
 src/app/admin/            admin panel (every page and action calls requireAdmin)
-scripts/                  create-admin, seed-demo
+scripts/                  create-admin, seed-demo, fetch-wp-assets
 ```

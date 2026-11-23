@@ -12,7 +12,7 @@
     { "binding": "WORKER_SELF_REFERENCE", "service": "trustpoint-portal" }
   ],
   "vars": {
-    "APP_URL": "https://partners.trustpointrealty.ng",
+    "APP_URL": "https://trustpointrealty.ng",
     "EMAIL_FROM": "TrustPoint Realty <no-reply@trustpointrealty.ng>"
   }
   // Secrets (set with `npx wrangler secret put NAME`):

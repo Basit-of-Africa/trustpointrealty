@@ -17,7 +17,7 @@ const client = postgres(url, { max: 1 });
 const db = drizzle(client, { schema });
 const pw = await hashPassword("Password1!");
 
-await client`truncate audit_log, commissions, payouts, sale_payments, sales, clients, estates, password_reset_tokens, sessions, users restart identity cascade`;
+await client`truncate audit_log, enquiries, commissions, payouts, sale_payments, sales, clients, estates, password_reset_tokens, sessions, users restart identity cascade`;
 
 const [admin] = await db.insert(schema.users).values({ email: "admin@demo.ng", passwordHash: pw, firstName: "Office", lastName: "Admin", phone: "+2347025050037", role: "admin", status: "active" }).returning();
 const [ada] = await db.insert(schema.users).values({ email: "ada@demo.ng", passwordHash: pw, firstName: "Ada", lastName: "Okafor", phone: "+2348031111111", status: "active", referralCode: "TPADA01", bankName: "GTBank", accountNumber: "0123456789", accountName: "Ada Okafor", approvedAt: new Date() }).returning();
