@@ -5,7 +5,9 @@
  *   npm run fetch-wp-assets
  *
  * Run it on a machine that can reach trustpointrealty.ng, BEFORE WordPress
- * is switched off. Then set NEXT_PUBLIC_ASSET_BASE="" (empty) in your
+ * is switched off. (In a cloud sandbox, run with NODE_USE_ENV_PROXY=1 so
+ * Node's fetch uses the HTTPS proxy.) Set WP_ORIGIN to download from a
+ * restored copy of the site instead. Then set NEXT_PUBLIC_ASSET_BASE="" (empty) in your
  * environment so the site serves the local copies, and commit public/.
  */
 import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
@@ -28,6 +30,11 @@ for (const path of paths) {
   try {
     const res = await fetch(`${SOURCE}/wp-content/uploads/${path}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    // A suspended or misconfigured host answers with an HTML page; never save that as an image.
+    const type = res.headers.get("content-type") ?? "";
+    if (!/^(image\/|application\/pdf)/.test(type)) {
+      throw new Error(`got ${type || "unknown content"} from ${res.url} instead of an image/PDF`);
+    }
     await mkdir(dirname(dest), { recursive: true });
     await writeFile(dest, Buffer.from(await res.arrayBuffer()));
     console.log(`saved ${path}`);
