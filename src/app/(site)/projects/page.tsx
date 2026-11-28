@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { images } from "@/content/site";
 import { Container, PageHero, ProjectCards, SplitHeading, StatsBand } from "@/components/site/sections";
+import { FeatureStrip } from "@/components/site/brand";
 
 export const metadata: Metadata = { title: "Projects" };
 
@@ -22,13 +22,7 @@ export default function ProjectsPage() {
           </p>
         </Container>
         <div className="mx-auto mt-14 max-w-[1346px] bg-[#f2f5f7] px-5 py-10">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={images.featuresStrip}
-            alt="Estate features: prime location, premium security, road network, street lights, drainage system, recreational area, tech hub, central water supply, gym facility, commercial area, coconut trees, sport complex, green area"
-            loading="lazy"
-            className="mx-auto w-full max-w-[1260px]"
-          />
+          <div className="mx-auto max-w-[1260px]"><FeatureStrip /></div>
         </div>
       </section>
       <StatsBand />

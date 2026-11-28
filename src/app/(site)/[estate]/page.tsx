@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { estates, images } from "@/content/site";
+import { estates } from "@/content/site";
+import { FeatureStrip, IllustrativeTag } from "@/components/site/brand";
 import { Container, GoldButton, Kicker, PageHero } from "@/components/site/sections";
 import { QuoteForm } from "@/components/site/quote-form";
 
@@ -32,13 +33,16 @@ export default async function EstatePage({ params }: PageProps<"/[estate]">) {
             <h2 className="mt-4 text-4xl font-bold text-[#222] lg:text-[44px]">{estate.name}</h2>
             <div className="mt-8 space-y-4 leading-7">{estate.paragraphs.map((p) => <p key={p}>{p}</p>)}</div>
             <div className="mt-12 bg-[#f2f5f7] p-5">
-              <img src={images.featuresStrip} alt="Estate features" loading="lazy" className="w-full" />
+              <FeatureStrip compact />
             </div>
             <div className="mt-9 sm:pl-4">
               {estate.faqPdf ? <GoldButton href={estate.faqPdf} external>Check FAQ</GoldButton> : <GoldButton href="/contact-us">Check FAQ</GoldButton>}
             </div>
           </div>
-          <img src={estate.flyer} alt={`${estate.name} flyer`} className="w-full bg-zinc-100 object-contain" />
+          <div className="relative self-start">
+            <img src={estate.image} alt="" className="aspect-[4/3] w-full bg-zinc-100 object-cover lg:aspect-square" />
+            <IllustrativeTag />
+          </div>
         </Container>
       </section>
       <section className="bg-gradient-to-b from-white from-[55px] to-tp-light to-[55px] pb-24">

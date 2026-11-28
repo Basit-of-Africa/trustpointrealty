@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Mail, MapPin, Menu, Phone, X } from "lucide-react";
-import { contact, images, nav, socials } from "@/content/site";
+import { contact, nav, socials } from "@/content/site";
+import { Logo } from "./brand";
 import { SocialIcon } from "./icons";
 
 export function Socials({ className = "", iconClass = "h-5 w-5" }: { className?: string; iconClass?: string }) {
@@ -51,8 +52,7 @@ export function SiteHeader() {
       <header className={`${transparent ? "absolute inset-x-0 z-30" : "relative z-30 bg-white shadow-sm"}`}>
         <div className="mx-auto flex h-[71px] max-w-[1240px] items-center justify-between px-5">
           <Link href="/" className="shrink-0 pl-5" aria-label="TrustPoint Realty home">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={images.logo} alt="TrustPoint Realty" width={152} height={48} className="h-12 w-auto" />
+            <Logo light={transparent} />
           </Link>
           <nav className="hidden items-center gap-[30px] lg:flex" aria-label="Main">
             {nav.map((item) => (

@@ -13,14 +13,18 @@ Same pages and addresses as the WordPress site: `/`, `/projects`, `/services`, `
   an estate page, add an entry to `estates`.
 - **Request a Quote** submissions are saved to the database and appear in **Admin → Enquiries**. Set
   `ENQUIRY_NOTIFY_EMAIL` (with `RESEND_API_KEY`) to also get an email for each one.
-- **Images and PDFs are still served from the WordPress server.** Before switching WordPress off, run
-  `npm run fetch-wp-assets` on a machine that can reach the old site. It copies every file into
-  `public/wp-content/uploads/`. Then set `NEXT_PUBLIC_ASSET_BASE=""` and commit `public/`.
+- **Images are in `public/images/`.** The WordPress hosting was suspended before its uploads could be
+  copied, so most photos are free-licence Pexels stand-ins (four are the exact originals); see
+  `public/images/CREDITS.md`. Estate photos are labelled "Illustrative photo" on the site.
+- **Still needed from the business:** the logo (until then a text wordmark is shown; set
+  `images.logo`), real estate photos/flyers, and the estate FAQ PDFs (set each estate's `faqPdf`;
+  until then "Check FAQ" goes to Contact Us). If the old hosting is restored,
+  `npm run fetch-wp-assets` downloads the originals.
 - Marketing pages are pre-rendered static HTML; the portal and admin pages are dynamic.
 
 ### Switching the domain over
 
-1. Run `npm run fetch-wp-assets`, set `NEXT_PUBLIC_ASSET_BASE=""`, commit.
+1. Add the logo, estate photos/flyers and FAQ PDFs (see above).
 2. Import realtors from WordPress (see "Coming from WordPress" below).
 3. Point `trustpointrealty.ng` at the Cloudflare Worker and set `APP_URL=https://trustpointrealty.ng`.
 
@@ -124,5 +128,5 @@ src/app/(public)/         /realtors, /become-a-realtor, /realtor-login, password
 src/app/r/[code]          referral link (/r/TPXXXXX) → registration with code prefilled
 src/app/portal/           realtor portal
 src/app/admin/            admin panel (every page and action calls requireAdmin)
-scripts/                  create-admin, seed-demo, fetch-wp-assets
+scripts/                  create-admin, seed-demo, fetch-wp-assets, gen-world-map
 ```

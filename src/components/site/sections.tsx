@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { ChevronDown, Quote } from "lucide-react";
 import { estateFeatures, estates, faqs, images, services, stats, testimonials, whyChoose } from "@/content/site";
 import { Icon } from "./icons";
+import { IllustrativeTag, Skyline } from "./brand";
 import { QuoteForm } from "./quote-form";
 
 /* eslint-disable @next/next/no-img-element -- images are served from the WordPress uploads (see content/site.ts) */
@@ -66,8 +67,9 @@ export function ProjectCards() {
     <div className="grid gap-x-5 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
       {estates.map((e) => (
         <article key={e.slug}>
-          <Link href={`/${e.slug}`} className="block overflow-hidden">
-            <img src={e.cardImage} alt={`${e.name} flyer`} loading="lazy" className="aspect-square w-full bg-zinc-200 object-cover transition duration-500 hover:scale-105" />
+          <Link href={`/${e.slug}`} className="relative block overflow-hidden">
+            <img src={e.image} alt="" loading="lazy" className="aspect-square w-full bg-zinc-200 object-cover transition duration-500 hover:scale-105" />
+            <IllustrativeTag />
           </Link>
           <div className="px-[15px]">
             <h3 className="mt-6 text-lg font-bold text-black">{e.name}</h3>
@@ -152,15 +154,15 @@ export function WhyChoose() {
 export function CtaSkyline() {
   return (
     <section className="bg-tp-light px-5 pb-5">
-      <div
-        className="mx-auto max-w-[1326px] overflow-hidden rounded-[30px] bg-brand-900 bg-bottom bg-no-repeat px-6 py-[100px] sm:px-[100px]"
-        style={{ backgroundImage: `url("${images.cityscape}")`, backgroundSize: "100% auto" }}
-      >
+      <div className="relative mx-auto max-w-[1326px] overflow-hidden rounded-[30px] bg-brand-900 px-6 py-[100px] sm:px-[100px]">
+        <Skyline className="absolute inset-x-0 bottom-0 h-[32%] w-full text-[#2b3550]" />
+        <div className="relative">
         <Kicker>#Your Real Estate TrustPoint</Kicker>
         <h2 className="mt-6 max-w-[1000px] text-4xl leading-tight font-bold text-white lg:text-[60px]">
           Let us assist you at every stage of your real estate journey.
         </h2>
         <p className="mt-8 text-[15px] text-white">Ready to embark on your real estate journey? Reach out to us for personalized assistance.</p>
+        </div>
       </div>
     </section>
   );

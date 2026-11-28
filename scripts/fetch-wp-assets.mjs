@@ -1,14 +1,14 @@
 /**
- * Copy every image/PDF the site uses from the WordPress server into
- * public/wp-content/uploads/, so the new site no longer depends on WordPress.
+ * Download the OLD WordPress site's own files (logo, estate flyers, FAQ
+ * PDFs, listed in `wpOriginals` in src/content/site.ts) into
+ * public/wp-content/uploads/.
  *
  *   npm run fetch-wp-assets
  *
- * Run it on a machine that can reach trustpointrealty.ng, BEFORE WordPress
- * is switched off. (In a cloud sandbox, run with NODE_USE_ENV_PROXY=1 so
- * Node's fetch uses the HTTPS proxy.) Set WP_ORIGIN to download from a
- * restored copy of the site instead. Then set NEXT_PUBLIC_ASSET_BASE="" (empty) in your
- * environment so the site serves the local copies, and commit public/.
+ * Only useful if the WordPress hosting (suspended in Nov 2026) is restored.
+ * In a cloud sandbox, run with NODE_USE_ENV_PROXY=1 so Node's fetch uses the
+ * HTTPS proxy. Set WP_ORIGIN to download from a restored copy elsewhere.
+ * Afterwards, point images.logo / estate faqPdf in site.ts at the files.
  */
 import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -46,4 +46,4 @@ for (const path of paths) {
 }
 console.log(`\n${ok}/${paths.length} files ready in public/wp-content/uploads.`);
 if (failed) process.exit(1);
-console.log('Now set NEXT_PUBLIC_ASSET_BASE="" so the site uses these local copies.');
+console.log("Now point images.logo and each estate's faqPdf in src/content/site.ts at these files.");

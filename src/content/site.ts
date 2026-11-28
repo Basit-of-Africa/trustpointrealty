@@ -4,13 +4,17 @@
  */
 
 /**
- * Images and PDFs still live on the WordPress server. Run
- * `npm run fetch-wp-assets` (on a machine that can reach the site) to copy
- * them into public/, then set NEXT_PUBLIC_ASSET_BASE="" so they are served
- * from this app. Do this BEFORE WordPress is switched off.
+ * Site images live in public/images/. The WordPress hosting was suspended
+ * before its uploads could be copied, so most photos are free-licence
+ * stand-ins from Pexels (see public/images/CREDITS.md). Four are the exact
+ * Pexels originals the old site used.
+ *
+ * `wpOriginals` (bottom of this file) lists the old WordPress files. If the
+ * hosting comes back, `npm run fetch-wp-assets` downloads them so the logo,
+ * estate flyers and FAQ PDFs can be put back.
  */
-const ASSET_BASE = process.env.NEXT_PUBLIC_ASSET_BASE ?? "https://trustpointrealty.ng";
-export const wp = (path: string) => `${ASSET_BASE}/wp-content/uploads/${path}`;
+const wp = (path: string) => `https://trustpointrealty.ng/wp-content/uploads/${path}`;
+const img = (file: string) => `/images/${file}`;
 
 export const contact = {
   topBarAddress: "68, Okediji Avenue, Beside Ibadan Business School, Bodija, Ibadan",
@@ -44,21 +48,14 @@ export const nav = [
 ];
 
 export const images = {
-  logo: wp("2023/12/cropped-TrustPoint-Web-Logo-2.png"),
-  pageHero: wp("2021/11/about-us-min.jpg"),
-  careersHero: wp("2025/02/pexels-edmond-dantes-8555769-scaled.jpg"),
-  heroSlides: [
-    wp("2023/12/pexels-kindel-media-8487338-scaled.jpg"),
-    wp("2023/12/pexels-david-mcbee-392031.jpg"),
-    wp("2024/09/image_fx_-7.png"),
-    wp("2024/09/image_fx_-9.png"),
-    wp("2024/09/image_fx_-8.png"),
-  ],
-  cityscape: wp("2025/04/Cityscape-1-1536x500.png"),
-  buildings: wp("2021/11/image-1-min.jpg"),
-  worker: wp("2021/11/image-2-min.jpg"),
-  featuresStrip: wp("2023/12/Features-2-scaled.jpg"),
-  worldMap: wp("2023/12/pngwing.com_.png"),
+  /** Set to the real logo file (e.g. "/images/logo.png") once it is available; until then a text wordmark is shown. */
+  logo: null as string | null,
+  pageHero: img("page-hero.jpg"),
+  careersHero: img("careers-hero.jpg"),
+  heroSlides: [img("hero-1.jpg"), img("hero-2.jpg"), img("hero-3.jpg"), img("hero-4.jpg"), img("hero-5.jpg")],
+  buildings: img("buildings.jpg"),
+  worker: img("worker.jpg"),
+  worldMap: img("world-map.svg"),
 };
 
 export const hero = {
@@ -70,17 +67,17 @@ export const hero = {
 export const services = [
   {
     title: "Estate Development",
-    image: wp("2021/11/service-1.jpg"),
+    image: img("service-development.jpg"),
     text: "TrustPoint Realty, we transform visions into thriving communities. Our commitment goes beyond selling land; we specialize in crafting sustainable and vibrant estates that redefine modern living. With world-class amenities, you can be rest assured of getting value for your money in our estates.",
   },
   {
     title: "Consultation",
-    image: wp("elementor/thumbs/pexels-kindel-media-8487338-scaled-qgyenb0nh5zdevrguk7yj7rg3qtftx6mcrnsyi9io4.jpg"),
+    image: img("hero-1.jpg"),
     text: "At TrustPoint Realty, we understand that navigating the real estate landscape can be a complex journey. Whether you're a seasoned investor or a first-time buyer, our Consultation Services are tailored to provide you with the insights and guidance you need to make informed decisions.",
   },
   {
     title: "Real Estate Investment",
-    image: wp("elementor/thumbs/pexels-athena-2323080-qgyepqfn4rb1em8ho409h3pbckukprtnosbyl8nwlg.jpg"),
+    image: img("service-investment.jpg"),
     text: "Discover the power of smart investing with TrustPoint Realty's Real Estate Investment services. Whether you're a seasoned investor or exploring real estate for the first time, our expert team is here to guide you toward lucrative opportunities.",
   },
 ];
@@ -89,8 +86,9 @@ export type EstatePage = {
   slug: string;
   name: string;
   location: string;
-  cardImage: string;
-  flyer: string;
+  /** An illustrative stock photo, labelled as such on the site. Replace with real estate photos/flyers. */
+  image: string;
+  /** The estate's FAQ PDF. The old ones were lost with the WordPress hosting; until re-uploaded, "Check FAQ" goes to Contact Us. */
   faqPdf: string | null;
   paragraphs: string[];
 };
@@ -100,9 +98,8 @@ export const estates: EstatePage[] = [
     slug: "coconutview",
     name: "Coconutview Estate",
     location: "Ibadan, Nigeria",
-    cardImage: wp("2025/02/WhatsApp-Image-2025-02-27-at-10.36.25_bd265950.jpg"),
-    flyer: wp("2025/02/WhatsApp-Image-2025-02-27-at-10.36.25_bd265950.jpg"),
-    faqPdf: wp("2025/02/COCONUT-VIEW-ESTATE-FAQ.pdf-3.pdf"),
+    image: img("estate-3.jpg"),
+    faqPdf: null,
     paragraphs: [
       "Welcome to Coconutview Estate, a luxurious haven nestled in a breathtaking tropical setting. Perfect for those seeking tranquility and exclusivity.",
     ],
@@ -111,9 +108,8 @@ export const estates: EstatePage[] = [
     slug: "avocado-crest",
     name: "Avocado Crest Estate",
     location: "Ibadan, Nigeria",
-    cardImage: wp("elementor/thumbs/Avocado-Crest-Estate-Flyer-2-r26fjrjfvi2x0hgrif3namn44w0p7xwrgzxvddku1g.jpg"),
-    flyer: wp("2025/02/WhatsApp-Image-2025-02-27-at-10.31.42_2116dd53.jpg"),
-    faqPdf: wp("2025/02/Avocado-Crest-Estate.pdf"),
+    image: img("estate-1.jpg"),
+    faqPdf: null,
     paragraphs: [
       "Welcome to Avocado Crest Estate, a luxurious haven nestled in a breathtaking tropical setting. Perfect for those seeking tranquility and exclusivity.",
     ],
@@ -122,9 +118,8 @@ export const estates: EstatePage[] = [
     slug: "palm-oasis",
     name: "Palm Oasis Farm Resort",
     location: "Ibadan, Nigeria",
-    cardImage: wp("2025/02/WhatsApp-Image-2025-02-27-at-10.31.42_982a9225.jpg"),
-    flyer: wp("2025/08/Palm-Oasis.jpg"),
-    faqPdf: wp("2025/08/Palm-Oasis-Farm-Resort-6.pdf"),
+    image: img("estate-palm.jpg"),
+    faqPdf: null,
     paragraphs: [
       "Welcome to Palm Oasis Farm Resort, a super-luxurious estate perfect for those seeking tranquility and exclusivity.",
       "Palm Oasis is a farm resort which is designed to include a golf course, a ranch, a residential area, shopping mall, etc. All these are expected to increase the value of land in that location rapidly asides the fact that it is located in a developing area with proximity to the circular road. It is designed to be a vacation destination. Subscribers into Palm Oasis now are subscribing to the residential area of the resort",
@@ -134,9 +129,8 @@ export const estates: EstatePage[] = [
     slug: "maple-nexus",
     name: "Maple Nexus Estate",
     location: "Ibadan, Nigeria",
-    cardImage: wp("2025/02/WhatsApp-Image-2025-02-27-at-10.31.42_96f6e198.jpg"),
-    flyer: wp("2025/02/WhatsApp-Image-2025-02-27-at-10.31.42_96f6e198.jpg"),
-    faqPdf: null, // the live site's "Check FAQ" button has no PDF yet
+    image: img("estate-2.jpg"),
+    faqPdf: null,
     paragraphs: [
       "Welcome to Maple Nexus Estate, a super-luxurious estate with breathtaking terrace duplexes. Perfect for those seeking tranquility and exclusivity.",
       "Adjoined by Maple Nexus Estate Extension of high value plots of land for sale.",
@@ -239,3 +233,23 @@ export const jobs = [
 ];
 
 export const recruitmentEmail = "recruitment.trustpointrealty@gmail.com";
+
+/**
+ * The old site's own files (logo, estate flyers, FAQ PDFs), lost when the
+ * WordPress hosting was suspended. `npm run fetch-wp-assets` downloads these
+ * into public/wp-content/uploads/ if the hosting is ever restored.
+ */
+export const wpOriginals = {
+  logo: wp("2023/12/cropped-TrustPoint-Web-Logo-2.png"),
+  flyers: {
+    coconutview: wp("2025/02/WhatsApp-Image-2025-02-27-at-10.36.25_bd265950.jpg"),
+    "avocado-crest": wp("2025/02/WhatsApp-Image-2025-02-27-at-10.31.42_2116dd53.jpg"),
+    "palm-oasis": wp("2025/08/Palm-Oasis.jpg"),
+    "maple-nexus": wp("2025/02/WhatsApp-Image-2025-02-27-at-10.31.42_96f6e198.jpg"),
+  },
+  faqPdfs: {
+    coconutview: wp("2025/02/COCONUT-VIEW-ESTATE-FAQ.pdf-3.pdf"),
+    "avocado-crest": wp("2025/02/Avocado-Crest-Estate.pdf"),
+    "palm-oasis": wp("2025/08/Palm-Oasis-Farm-Resort-6.pdf"),
+  },
+};
